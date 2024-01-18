@@ -2,7 +2,8 @@
  * Class
  */
 class Class_type {
-    static types = {
+    // todo: class 技能
+    static TYPES = {
         /**
          * 坦克
          */
@@ -188,5 +189,23 @@ class Class_type {
              */
             bonus_point: 20,
         }
+    }
+
+    /**
+     * 轉換表格資料
+     * @returns {*[]}
+     */
+    generate_table_data() {
+        let data = [];
+        Object.keys(Class_type.TYPES).forEach((class_name) => {
+            const class_type = Class_type.TYPES[class_name];
+            data.push({
+                "名稱": class_type.name,
+                "探索屬性": new Exploration_attributes().generate_table_data(class_type.exploration_attributes),
+                "戰鬥屬性": new Battle_attributes().generate_table_data(class_type.battle_attributes),
+                "獎勵點": class_type.bonus_point
+            });
+        });
+        return data;
     }
 }

@@ -94,4 +94,21 @@ class Terrain {
             cost: 1
         }
     }
+
+    /**
+     * 轉換表格資料
+     * @returns {*[]}
+     */
+    generate_table_data() {
+        let data = [];
+        Object.keys(Terrain.AFFINITY).forEach((affinity_name) => {
+            const affinity_type = Terrain.AFFINITY[affinity_name];
+            data.push({
+                "名稱": affinity_name,
+                "傷害加成": affinity_type.damage,
+                "獎勵點": affinity_type.cost
+            });
+        });
+        return data;
+    }
 }

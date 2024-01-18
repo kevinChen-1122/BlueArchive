@@ -2,7 +2,7 @@
  * 攻擊類型
  */
 class Attack_type {
-    static types = {
+    static TYPES = {
         /**
          * 爆炸
          */

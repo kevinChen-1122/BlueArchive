@@ -2,7 +2,7 @@
  * 防禦類型
  */
 class Defense_type {
-    static types = {
+    static TYPES = {
         /**
          * 輕裝甲
          */

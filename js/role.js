@@ -2,7 +2,7 @@
  * 戰術作用
  */
 class Role {
-    static roles = {
+    static TYPES = {
         STRIKER: {
             ID: 1,
             /**
@@ -72,4 +72,22 @@ class Role {
             bonus_point: 10
         }
     };
+
+    /**
+     * 轉換表格資料
+     * @returns {*[]}
+     */
+    generate_table_data() {
+        let data = [];
+        Object.keys(Role.TYPES).forEach((role_name) => {
+            const role = Role.TYPES[role_name];
+            data.push({
+                "名稱": role.name,
+                "探索屬性": new Exploration_attributes().generate_table_data(role.exploration_attributes),
+                "戰鬥屬性": new Battle_attributes().generate_table_data(role.battle_attributes),
+                "獎勵點": role.bonus_point
+            });
+        });
+        return data;
+    }
 }

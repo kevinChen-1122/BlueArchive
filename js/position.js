@@ -2,7 +2,7 @@
  * 位置
  */
 class Position {
-    static types = {
+    static TYPES = {
         FRONT: {
             ID: 1,
             /**
@@ -117,5 +117,24 @@ class Position {
              */
             movement_point: 1
         }
+    }
+
+    /**
+     * 轉換表格資料
+     * @returns {*[]}
+     */
+    generate_table_data() {
+        let data = [];
+        Object.keys(Position.TYPES).forEach((position_name) => {
+            const position = Position.TYPES[position_name];
+            data.push({
+                "名稱": position.name,
+                "探索屬性": new Exploration_attributes().generate_table_data(position.exploration_attributes),
+                "戰鬥屬性": new Battle_attributes().generate_table_data(position.battle_attributes),
+                "移動力": position.movement_point,
+                "獎勵點": position.bonus_point
+            });
+        });
+        return data;
     }
 }

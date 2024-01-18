@@ -15,7 +15,7 @@ class Equipment {
      * 類型
      * @type {{BADGE: {slots_type: string, exploration_attributes: Exploration_attributes, effect: [string], name: string, ID: number, battle_attributes: Battle_attributes}, NECKLACE: {slots_type: string, exploration_attributes: Exploration_attributes, effect: string[], name: string, ID: number, battle_attributes: Battle_attributes}, HAIRPIN: {slots_type: string, exploration_attributes: Exploration_attributes, effect: [string], name: string, ID: number, battle_attributes: Battle_attributes}, GLOVES: {slots_type: string, exploration_attributes: Exploration_attributes, effect: [string], name: string, ID: number, battle_attributes: Battle_attributes}, CHARM: {slots_type: string, exploration_attributes: Exploration_attributes, effect: string[], name: string, ID: number, battle_attributes: Battle_attributes}, WATCH: {slots_type: string, exploration_attributes: Exploration_attributes, effect: string[], name: string, ID: number, battle_attributes: Battle_attributes}, BAG: {slots_type: string, exploration_attributes: Exploration_attributes, effect: [], name: string, ID: number, battle_attributes: Battle_attributes}, HAT: {slots_type: string, exploration_attributes: Exploration_attributes, effect: [string], name: string, ID: number, battle_attributes: Battle_attributes}, SHOE: {slots_type: string, exploration_attributes: Exploration_attributes, effect: [], name: string, ID: number, battle_attributes: Battle_attributes}}}
      */
-    static types = {
+    static TYPES = {
         /**
          * 帽子
          */
@@ -404,5 +404,24 @@ class Equipment {
                 "被爆擊時基本傷害減半"
             ]
         },
+    }
+
+    /**
+     * 轉換表格資料
+     * @returns {*[]}
+     */
+    generate_table_data() {
+        let data = [];
+        Object.keys(Equipment.TYPES).forEach((equipment_name) => {
+            const equipment_type = Equipment.TYPES[equipment_name];
+            data.push({
+                "名稱": equipment_type.name,
+                "區塊": equipment_type.slots_type,
+                "探索屬性": new Exploration_attributes().generate_table_data(equipment_type.exploration_attributes),
+                "戰鬥屬性": new Battle_attributes().generate_table_data(equipment_type.battle_attributes),
+                "效果": Object.values(equipment_type.effect).map(effect => `<li>${effect}</li>`).join(''),
+            });
+        });
+        return data;
     }
 }

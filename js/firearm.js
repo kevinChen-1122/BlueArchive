@@ -17,7 +17,7 @@ class Firearm {
         MANY:2
     };
     // todo: LMG,MMG,HMG 不能在射擊中移動
-    static types = {
+    static TYPES = {
         /**
          * 手槍
          */
@@ -967,5 +967,30 @@ class Firearm {
                 }
             }
         },
+    }
+
+    /**
+     * 轉換表格資料
+     * @returns {*[]}
+     */
+    generate_table_data() {
+        let data = [];
+        Object.keys(Firearm.TYPES).forEach((firearm_name) => {
+            const firearm_type = Firearm.TYPES[firearm_name];
+            data.push({
+                "銃種": firearm_type.name,
+                "武器": Object.keys(firearm_type.weapon).map(weapon => `<div>${weapon}</div>`).join(''),
+                "對象": Object.values(firearm_type.weapon).map(weapon => `<div>${weapon.target === Firearm.TARGET_TYPE.ONE ? "單一": "複數"}</div>`).join(''),
+                "射程": Object.values(firearm_type.weapon).map(weapon => `<div>${weapon.min_range} ~ ${weapon.max_range}</div>`).join(''),
+                "裝彈數": Object.values(firearm_type.weapon).map(weapon => `<div>${weapon.capacity}</div>`).join(''),
+                "裝彈回合數": Object.values(firearm_type.weapon).map(weapon => `<div>${weapon.reload_round}</div>`).join(''),
+                "特性": Object.values(firearm_type.weapon).map(weapon =>
+                    `<div><ul>${Object.values(weapon.property).map(property =>
+                        `<li>${property}</li>`
+                    ).join('')}</ul></div>`
+                ).join(''),
+            });
+        });
+        return data;
     }
 }
