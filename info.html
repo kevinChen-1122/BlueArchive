@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>資料列表</title>
+    <script src="js/exploration_attributes.js"></script>
+    <script src="js/battle_attributes.js"></script>
+    <script src="js/role.js"></script>
+    <script src="js/attack_type.js"></script>
+    <script src="js/position.js"></script>
+    <script src="js/defense_type.js"></script>
+    <script src="js/class_type.js"></script>
+    <script src="js/terrain.js"></script>
+    <script src="js/equipment.js"></script>
+    <script src="js/firearm.js"></script>
+    <style>
+        body {
+            font-family: arial, serif;
+        }
+        .tab {
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+            overflow: hidden;
+            background-color: #f1f1f1;
+            border-radius: 10px;
+        }
+        .tab button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+            font-size: 17px;
+            border-radius: 10px;
+        }
+        .tab button:hover {
+            background-color: #ddd;
+        }
+        .tab button.active {
+            background-color: #ccc;
+        }
+        .tables {
+            margin-top: 10px;
+            text-align: center;
+        }
+        table {
+            margin-left: auto;
+            margin-right: auto;
+            table-layout: auto;
+            border-collapse: collapse;
+        }
+        table td, table th {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+            min-width: 50px;
+            white-space: nowrap;
+        }
+        li {
+            list-style-type: decimal-leading-zero;
+        }
+        table td div {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 150px;
+        }
+    </style>
+</head>
+<body>
+    <div class="tab" id="tab">
+    </div>
+    <div class="tables" id="tables">
+    </div>
+</body>
+<script>
+
+    create_info('武器類型', new Firearm().generate_table_data());
+    create_info('裝備', new Equipment().generate_table_data());
+    create_info('戰術作用', new Role().generate_table_data());
+    create_info('位置', new Position().generate_table_data());
+    create_info('地形戰鬥力', new Terrain().generate_table_data());
+    create_info('Class', new Class_type().generate_table_data());
+
+    setupTabListeners()
+
+    function openTab(tabLinks, tabContents, clickedTab) {
+        Array.from(tabContents).forEach(content => content.style.display = 'none');
+        Array.from(tabLinks).forEach(link => link.classList.remove('active'));
+
+        const index = Array.from(tabLinks).indexOf(clickedTab);
+        tabContents[index].style.display = 'inline-table';
+
+        clickedTab.classList.add('active');
+    }
+
+    function setupTabListeners() {
+        const tabLinks = document.querySelectorAll('.tab-links');
+        const tabContents = document.querySelectorAll('.tables > *');
+
+        tabLinks.forEach((tab) => {
+            tab.addEventListener('click', () => openTab(tabLinks, tabContents, tab));
+        });
+
+        tabLinks[0].click()
+    }
+
+    function create_info(tab_name = '', table_data = []) {
+        document.getElementById('tab').appendChild(create_tab_button(tab_name))
+        document.getElementById('tables').appendChild(create_table(table_data))
+    }
+
+    function create_tab_button(name) {
+        let new_button = document.createElement('button');
+        new_button.className = 'tab-links'
+        new_button.textContent = name
+        return new_button;
+    }
+
+    function create_table(data) {
+        let table = document.createElement('table');
+
+        if (data.length === 0) {
+            return table;
+        }
+
+        let thead = document.createElement('thead');
+        let headerRow = document.createElement('tr');
+
+        Object.keys(data[0]).forEach(key => {
+            let headerCell = document.createElement('th');
+            headerCell.textContent = key;
+            headerRow.appendChild(headerCell);
+        });
+        thead.appendChild(headerRow);
+        table.appendChild(thead);
+
+        let tbody = document.createElement('tbody');
+        data.forEach(item => {
+            let row = document.createElement('tr');
+            Object.values(item).forEach(values => {
+                let cell = document.createElement('td');
+                cell.innerHTML = values;
+                row.appendChild(cell);
+            });
+            tbody.appendChild(row);
+        });
+        table.appendChild(tbody);
+
+        return table;
+    }
+</script>
+</html>
