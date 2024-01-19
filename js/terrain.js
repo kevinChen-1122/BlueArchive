@@ -111,4 +111,28 @@ class Terrain {
         });
         return data;
     }
+
+    /**
+     * 建立選項
+     * @returns {HTMLSelectElement}
+     */
+    create_options(terrain_type) {
+
+        let select_element = document.createElement('select');
+        select_element.id = `terrain_${terrain_type}_select`;
+
+        let default_option = document.createElement('option');
+        default_option.textContent = '- select an option -';
+        default_option.disabled = true;
+        default_option.selected = true;
+        select_element.appendChild(default_option)
+
+        Object.keys(Terrain.AFFINITY).forEach((name) => {
+            const new_option = document.createElement('option')
+            new_option.textContent = `${name} (cost: ${Terrain.AFFINITY[name].cost})`;
+            new_option.dataset.id = name;
+            select_element.appendChild(new_option);
+        });
+        return select_element;
+    }
 }

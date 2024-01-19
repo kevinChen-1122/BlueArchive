@@ -137,4 +137,29 @@ class Position {
         });
         return data;
     }
+
+    /**
+     * 建立選項
+     * @returns {HTMLSelectElement}
+     */
+    create_options() {
+
+        let select_element = document.createElement('select');
+        select_element.id = 'position_select';
+
+        let default_option = document.createElement('option');
+        default_option.textContent = '- select an option -';
+        default_option.disabled = true;
+        default_option.selected = true;
+        select_element.appendChild(default_option)
+
+        Object.keys(Position.TYPES).forEach((type_name) => {
+            const position_type = Position.TYPES[type_name];
+            const new_option = document.createElement('option')
+            new_option.textContent = position_type.name;
+            new_option.dataset.id = type_name;
+            select_element.appendChild(new_option);
+        });
+        return select_element;
+    }
 }

@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>角色卡</title>
+  <script src="js/exploration_attributes.js"></script>
+  <script src="js/battle_attributes.js"></script>
+  <script src="js/role.js"></script>
+  <script src="js/attack_type.js"></script>
+  <script src="js/position.js"></script>
+  <script src="js/defense_type.js"></script>
+  <script src="js/class_type.js"></script>
+  <script src="js/terrain.js"></script>
+  <script src="js/equipment.js"></script>
+  <script src="js/firearm.js"></script>
+  <style>
+    body {
+      font-family: arial,serif;
+    }
+    input {
+      border-radius: 3px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    textarea {
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+      resize: vertical;
+    }
+    .tab {
+      overflow: hidden;
+      background-color: #f1f1f1;
+      border-radius: 10px;
+    }
+    .tab button {
+      background-color: inherit;
+      float: left;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      padding: 14px 16px;
+      transition: 0.3s;
+      font-size: 17px;
+      border-radius: 10px;
+    }
+    .tab button:hover {
+      background-color: #ddd;
+    }
+    .tab button.active {
+      background-color: #ccc;
+    }
+    .tab-content {
+      display: none;
+      margin-top: 10px;
+      padding: 6px 12px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      box-sizing: border-box;
+    }
+    .tab-content table {
+      width: 100%;
+      max-width: 100%;
+      table-layout: fixed;
+      border-collapse: collapse;
+    }
+    .tab-content table td, .tab-content table th {
+      border: 1px solid #ddd;
+      padding: 3px;
+      text-align: left;
+    }
+    thead {
+      background-color: #ccc;
+    }
+    select {
+      width: 100%;
+      height: 100%;
+      text-align: center;
+    }
+    .table {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="tab">
+    <button class="tab-links">角色卡</button>
+  </div>
+  <div id="Tab1" class="tab-content">
+<!--    角色個資-->
+    <div class="table">
+      <table>
+        <thead>
+          <tr>
+            <td colspan="7">角色個資</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td colspan="2">姓名</td>
+            <td>性別</td>
+            <td>身高</td>
+            <td>年齡</td>
+            <td colspan="2">神秘．種族</td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <label>
+                <input>
+              </label>
+            </td>
+            <td>
+              <label>
+                <input>
+              </label>
+            </td>
+            <td>
+              <label>
+                <input>
+              </label>
+            </td>
+            <td>
+              <label>
+                <input>
+              </label>
+            </td>
+            <td colspan="2">
+              <label>
+                <input>
+              </label>
+            </td>
+          </tr>
+          <tr>
+            <td rowspan="2">所屬</td>
+            <td colspan="2">學校</td>
+            <td colspan="2">學年</td>
+            <td colspan="2">社團．委員會</td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <label>
+                <input>
+              </label>
+            </td>
+            <td colspan="2">
+              <label>
+                <input>
+              </label>
+            </td>
+            <td colspan="2">
+              <label>
+                <input>
+              </label>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="7">學生情報</td>
+          </tr>
+          <tr>
+            <td colspan="7">
+              <label>
+                <textarea></textarea>
+              </label>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="7">資訊欄</td>
+          </tr>
+          <tr>
+            <td colspan="7">
+              <label>
+                <textarea></textarea>
+              </label>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+<!--    武器種-->
+    <div class="table">
+      <table>
+        <thead>
+          <tr>
+            <td colspan="5">武器種情報</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td colspan="2">槍種</td>
+            <td colspan="3">武器名</td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <label id="firearm_select_label">
+              </label>
+            </td>
+            <td colspan="3">
+              <label>
+                <input>
+              </label>
+            </td>
+          </tr>
+          <tr>
+            <td>武器</td>
+            <td>對象</td>
+            <td>射程</td>
+            <td>裝彈數</td>
+            <td>裝彈回合數</td>
+          </tr>
+          <tr>
+            <td id="firearm_name_td"></td>
+            <td id="firearm_target_td"></td>
+            <td id="firearm_range_td"></td>
+            <td id="firearm_capacity_td"></td>
+            <td id="firearm_reload_round_td"></td>
+          </tr>
+          <tr>
+            <td colspan="5">特性</td>
+          </tr>
+          <tr>
+            <td colspan="5" id="firearm_property_td"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+<!--    戰鬥風格-->
+    <div class="table">
+      <table>
+        <thead>
+          <tr>
+            <td colspan="4">戰鬥風格</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td colspan="4">位置</td>
+          </tr>
+          <tr>
+            <td rowspan="2">
+              <label id="position_select_label">
+              </label>
+            </td>
+            <td>上升能力</td>
+            <td>獎勵點</td>
+            <td>移動力</td>
+          </tr>
+          <tr>
+            <td id="position_attributes_td"></td>
+            <td id="position_bonus_point_td"></td>
+            <td id="position_movement_point_td"></td>
+          </tr>
+          <tr>
+            <td colspan="4">Class</td>
+          </tr>
+          <tr>
+            <td rowspan="2">
+              <label id="class_type_select_label">
+              </label>
+            </td>
+            <td>上升能力</td>
+            <td>獎勵點</td>
+            <td>Class 技能</td>
+          </tr>
+          <tr>
+            <td id="class_type_attributes_td"></td>
+            <td id="class_type_bonus_point_td"></td>
+            <td id="class_type_skill_td"></td>
+          </tr>
+          <tr>
+            <td colspan="2">攻擊類型</td>
+            <td colspan="2">防禦類型</td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <label id="attack_type_select_label">
+              </label>
+            </td>
+            <td colspan="2">
+              <label id="defense_type_select_label">
+              </label>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">戰術作用</td>
+            <td colspan="2">掩體</td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <label id="role_select_label">
+              </label>
+            </td>
+            <td colspan="2">
+              <label>
+                <select>
+                  <option disabled selected>- select an option -</option>
+                  <option>使用</option>
+                  <option>不使用</option>
+                </select>
+              </label>
+            </td>
+          </tr>
+          <tr>
+            <td rowspan="4">地形戰鬥力</td>
+          </tr>
+          <tr>
+            <td colspan="2">地形</td>
+            <td>
+              <span>合計 Cost:</span>
+              <span id="terrain_total_cost">0</span>
+            </td>
+          </tr>
+          <tr>
+            <td>市區</td>
+            <td>野外</td>
+            <td>室內</td>
+          </tr>
+          <tr>
+            <td>
+              <label id="terrain_city_select_label">
+              </label>
+            </td>
+            <td>
+              <label id="terrain_desert_select_label">
+              </label>
+            </td>
+            <td>
+              <label id="terrain_indoors_select_label">
+              </label>
+            </td>
+          </tr>
+          <tr>
+            <td rowspan="4">裝備</td>
+            <td colspan="3">區塊</td>
+          </tr>
+          <tr>
+            <td>A</td>
+            <td>B</td>
+            <td>C</td>
+          </tr>
+          <tr>
+            <td>
+              <label id="equipment_A_slots_select_label">
+              </label>
+            </td>
+            <td>
+              <label id="equipment_B_slots_select_label">
+              </label>
+            </td>
+            <td>
+              <label id="equipment_C_slots_select_label">
+              </label>
+            </td>
+          </tr>
+          <tr>
+            <td id="equipment_A_slots_info_td"></td>
+            <td id="equipment_B_slots_info_td"></td>
+            <td id="equipment_C_slots_info_td"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+<!--    探索屬性-->
+    <div class="table">
+      <table>
+        <thead>
+          <tr>
+            <td colspan="5">探索屬性</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <span>剩餘獎勵點:</span>
+              <span>0</span>
+            </td>
+            <td>起始值</td>
+            <td>技能</td>
+            <td>裝備</td>
+            <td>合計</td>
+          </tr>
+          <tr>
+            <td>體能</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>體型</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>靈感</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>意志</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>神秘</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>幸運</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+<!--    戰鬥屬性-->
+    <div class="table">
+      <table>
+        <thead>
+        <tr>
+          <td colspan="9">戰鬥屬性</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>
+            <span>剩餘獎勵點:</span>
+            <span>0</span>
+          </td>
+          <td>基礎值</td>
+          <td>Class</td>
+          <td>位置</td>
+          <td>戰術作用</td>
+          <td>技能</td>
+          <td>獎勵</td>
+          <td>裝備</td>
+          <td>合計</td>
+        </tr>
+        <tr>
+          <td>體力</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>攻擊力</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>防禦力</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>治癒力</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>敏捷</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>命中</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>迴避</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const tabs = document.querySelectorAll('.tab-links');
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', function() {
+        openTab(this, 'Tab' + (index + 1));
+      });
+    });
+
+    tabs[0].click();
+  });
+
+  function openTab(clickedTab, tabName) {
+    const tabContents = document.querySelectorAll('.tab-content');
+    tabContents.forEach(content => {
+      content.style.display = 'none';
+    });
+
+    const tabLinks = document.querySelectorAll('.tab-links');
+    tabLinks.forEach(link => {
+      link.classList.remove('active');
+    });
+
+    document.getElementById(tabName).style.display = 'block';
+    clickedTab.classList.add('active');
+  }
+
+  // 武器
+  document.getElementById('firearm_select_label').appendChild(new Firearm().create_options())
+  document.getElementById('firearm_select').addEventListener("change",function (){
+    const selected_option = this.options[this.selectedIndex];
+    const firearm_info = Firearm.TYPES[selected_option.dataset.id] ?? null;
+    if (firearm_info !== null) {
+      const firearm_name_td = document.getElementById('firearm_name_td');
+      const firearm_target_td = document.getElementById('firearm_target_td');
+      const firearm_range_td = document.getElementById('firearm_range_td');
+      const firearm_capacity_td = document.getElementById('firearm_capacity_td');
+      const firearm_reload_round_td = document.getElementById('firearm_reload_round_td');
+      const firearm_property_td = document.getElementById('firearm_property_td');
+
+      const weaponData = Object.values(firearm_info.weapon);
+
+      firearm_name_td.innerHTML = Object.keys(firearm_info.weapon).map(item => `<div>${item}</div>`).join('');
+      firearm_target_td.innerHTML = weaponData.map(item => `<div>${item.target === Firearm.TARGET_TYPE.ONE ? "單一": "複數"}</div>`).join('');
+      firearm_range_td.innerHTML = weaponData.map(item => `<div>${item.min_range} ~ ${item.max_range}</div>`).join('');
+      firearm_capacity_td.innerHTML = weaponData.map(item => `<div>${item.capacity}</div>`).join('');
+      firearm_reload_round_td.innerHTML = weaponData.map(item => `<div>${item.reload_round}</div>`).join('');
+      firearm_property_td.innerHTML = weaponData.map(item =>
+              `<div><ul>${Object.values(item.property).map(property =>
+                      `<li>${property}</li>`
+              ).join('')}</ul></div>`
+      ).join('');
+    }
+  });
+
+  // 戰術作用
+  document.getElementById('role_select_label').appendChild(new Role().create_options());
+  // 攻擊類型
+  document.getElementById('attack_type_select_label').appendChild(new Attack_type().create_options());
+  // 防禦類型
+  document.getElementById('defense_type_select_label').appendChild(new Defense_type().create_options());
+  // 位置
+  document.getElementById('position_select_label').appendChild(new Position().create_options());
+  document.getElementById('position_select').addEventListener('change', function () {
+    const selected_option = this.options[this.selectedIndex];
+    const position_info = Position.TYPES[selected_option.dataset.id] ?? null;
+    if (position_info !== null) {
+      const position_attributes_element = document.getElementById('position_attributes_td');
+      const position_bonus_point_element = document.getElementById('position_bonus_point_td');
+      const position_movement_point_element = document.getElementById('position_movement_point_td');
+
+      position_attributes_element.innerHTML = new Exploration_attributes().generate_table_data(position_info.exploration_attributes)
+              + new Battle_attributes().generate_table_data(position_info.battle_attributes);
+      position_bonus_point_element.innerHTML = `<div>${position_info.bonus_point}</div>`;
+      position_movement_point_element.innerHTML = `<div>${position_info.movement_point}</div>`;
+    }
+  });
+  // Class
+  document.getElementById('class_type_select_label').appendChild(new Class_type().create_options());
+  document.getElementById('class_type_select').addEventListener('change', function () {
+    const selected_option = this.options[this.selectedIndex];
+    const class_type_info = Class_type.TYPES[selected_option.dataset.id] ?? null;
+    if (class_type_info !== null) {
+      const class_type_attributes_element = document.getElementById('class_type_attributes_td');
+      const class_type_bonus_point_element = document.getElementById('class_type_bonus_point_td');
+      const class_type_skill_element = document.getElementById('class_type_skill_td');
+
+      class_type_attributes_element.innerHTML = new Exploration_attributes().generate_table_data(class_type_info.exploration_attributes)
+              + new Battle_attributes().generate_table_data(class_type_info.battle_attributes);
+      class_type_bonus_point_element.innerHTML = `<div>${class_type_info.bonus_point}</div>`;
+      class_type_skill_element.innerHTML = `<div></div>`;
+
+    }
+  });
+
+  // 地形戰鬥力消耗合計最大值
+  const max_terrain_cost = 10;
+  function terrain_total_cost(){
+    const city_select = document.getElementById('terrain_city_select');
+    const desert_select = document.getElementById('terrain_desert_select');
+    const indoors_select = document.getElementById('terrain_indoors_select');
+
+    const city_selected = city_select.options[city_select.selectedIndex];
+    const desert_selected = desert_select.options[desert_select.selectedIndex];
+    const indoors_selected = indoors_select.options[indoors_select.selectedIndex];
+
+    const city_cost = Terrain.AFFINITY[city_selected.dataset.id]?.cost || 0;
+    const desert_cost = Terrain.AFFINITY[desert_selected.dataset.id]?.cost || 0;
+    const indoors_cost = Terrain.AFFINITY[indoors_selected.dataset.id]?.cost || 0;
+
+    const terrain_total_cost_element = document.getElementById('terrain_total_cost');
+    let total = parseInt(city_cost) + parseInt(desert_cost) + parseInt(indoors_cost);
+    if (total > max_terrain_cost) {
+      alert(`地形戰鬥力合計不得超過 ${max_terrain_cost}`);
+    }
+    terrain_total_cost_element.textContent = total;
+  }
+  // 市區
+  document.getElementById('terrain_city_select_label').appendChild(new Terrain().create_options('city'));
+  document.getElementById('terrain_city_select').addEventListener("change", terrain_total_cost);
+  // 野外
+  document.getElementById('terrain_desert_select_label').appendChild(new Terrain().create_options('desert'));
+  document.getElementById('terrain_desert_select').addEventListener("change", terrain_total_cost);
+  // 室內
+  document.getElementById('terrain_indoors_select_label').appendChild(new Terrain().create_options('indoors'));
+  document.getElementById('terrain_indoors_select').addEventListener("change", terrain_total_cost);
+
+  // 裝備區塊 A
+  document.getElementById('equipment_A_slots_select_label').appendChild(new Equipment().create_options(Equipment.SLOTS_TYPE.A));
+  document.getElementById('equipment_A_slots_select').addEventListener('change', function () {
+    const selected_option = this.options[this.selectedIndex];
+    const equipment_info = Equipment.TYPES[selected_option.dataset.id] ?? null;
+    if (equipment_info !== null) {
+      const equipment_A_slots_info_element = document.getElementById('equipment_A_slots_info_td');
+
+      equipment_A_slots_info_element.innerHTML = new Exploration_attributes().generate_table_data(equipment_info.exploration_attributes)
+              + new Battle_attributes().generate_table_data(equipment_info.battle_attributes)
+              + `<ul>${Object.values(equipment_info.effect).map(effect => `<li>${effect}</li>`).join('')}</ul>`;
+    }
+  });
+  // 裝備區塊 B
+  document.getElementById('equipment_B_slots_select_label').appendChild(new Equipment().create_options(Equipment.SLOTS_TYPE.B));
+  document.getElementById('equipment_B_slots_select').addEventListener('change', function () {
+    const selected_option = this.options[this.selectedIndex];
+    const equipment_info = Equipment.TYPES[selected_option.dataset.id] ?? null;
+    if (equipment_info !== null) {
+      const equipment_B_slots_info_element = document.getElementById('equipment_B_slots_info_td');
+
+      equipment_B_slots_info_element.innerHTML = new Exploration_attributes().generate_table_data(equipment_info.exploration_attributes)
+              + new Battle_attributes().generate_table_data(equipment_info.battle_attributes)
+              + `<ul>${Object.values(equipment_info.effect).map(effect => `<li>${effect}</li>`).join('')}</ul>`;
+    }
+  });
+  // 裝備區塊 C
+  document.getElementById('equipment_C_slots_select_label').appendChild(new Equipment().create_options(Equipment.SLOTS_TYPE.C));
+  document.getElementById('equipment_C_slots_select').addEventListener('change', function () {
+    const selected_option = this.options[this.selectedIndex];
+    const equipment_info = Equipment.TYPES[selected_option.dataset.id] ?? null;
+    if (equipment_info !== null) {
+      const equipment_C_slots_info_element = document.getElementById('equipment_C_slots_info_td');
+
+      equipment_C_slots_info_element.innerHTML = new Exploration_attributes().generate_table_data(equipment_info.exploration_attributes)
+              + new Battle_attributes().generate_table_data(equipment_info.battle_attributes)
+              + `<ul>${Object.values(equipment_info.effect).map(effect => `<li>${effect}</li>`).join('')}</ul>`;
+    }
+  });
+
+
+</script>
+</html>

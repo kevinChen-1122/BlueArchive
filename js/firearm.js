@@ -993,4 +993,29 @@ class Firearm {
         });
         return data;
     }
+
+    /**
+     * 建立選項
+     * @returns {HTMLSelectElement}
+     */
+    create_options() {
+
+        let select_element = document.createElement('select');
+        select_element.id = 'firearm_select';
+
+        let default_option = document.createElement('option');
+        default_option.textContent = '- select an option -';
+        default_option.disabled = true;
+        default_option.selected = true;
+        select_element.appendChild(default_option)
+
+        Object.keys(Firearm.TYPES).forEach((firearm_name) => {
+            const firearm_type = Firearm.TYPES[firearm_name];
+            const new_option = document.createElement('option')
+            new_option.textContent = firearm_type.name;
+            new_option.dataset.id = firearm_name;
+            select_element.appendChild(new_option);
+        });
+        return select_element;
+    }
 }

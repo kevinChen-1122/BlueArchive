@@ -424,4 +424,32 @@ class Equipment {
         });
         return data;
     }
+
+    /**
+     * 建立選項
+     * @returns {HTMLSelectElement}
+     */
+    create_options(slots_type) {
+
+        let select_element = document.createElement('select');
+        select_element.id = `equipment_${slots_type}_slots_select`;
+
+        let default_option = document.createElement('option');
+        default_option.textContent = '- select an option -';
+        default_option.disabled = true;
+        default_option.selected = true;
+        select_element.appendChild(default_option)
+
+        const equipment_by_slots = Object.entries(Equipment.TYPES).filter(([key, item]) => item.slots_type === slots_type);
+        Object.keys(equipment_by_slots).forEach((index) => {
+            const equipment_name = equipment_by_slots[index][0];
+            const equipment_type = Equipment.TYPES[equipment_name];
+
+            const new_option = document.createElement('option')
+            new_option.textContent = equipment_type.name;
+            new_option.dataset.id = equipment_name;
+            select_element.appendChild(new_option);
+        });
+        return select_element;
+    }
 }
