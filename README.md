@@ -15,6 +15,7 @@ BlueArchive
 │  └─ terrain.js (地形戰鬥力)
 ├─ .gitattributes
 ├─ .gitignore
+├─ character.html (角色卡)
 ├─ info.html (資料表)
 └─ README.md
 ```
