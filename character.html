@@ -80,6 +80,13 @@
     .table {
       margin-bottom: 10px;
     }
+    svg {
+      width: 100%;
+      height: auto;
+      transform: scale(1.3);
+      display: block;
+      margin: 0 auto;
+    }
   </style>
 </head>
 <body>
@@ -116,7 +123,7 @@
             </td>
             <td>
               <label>
-                <input>
+                <input id="height_input" type="number" required>
               </label>
             </td>
             <td>
@@ -377,45 +384,110 @@
           </tr>
           <tr>
             <td>體能</td>
-            <td id="init_strength">0</td>
-            <td id="skill_strength">0</td>
-            <td id="equipment_strength">0</td>
-            <td id="total_strength">0</td>
+            <td>
+              <div id="init_strength">0</div>
+              <div>
+                <button class="roll_dice" value="init_strength">重骰</button>
+              </div>
+            </td>
+            <td>
+              <div id="skill_strength">0</div>
+            </td>
+            <td>
+              <div id="equipment_strength">0</div>
+            </td>
+            <td>
+              <div id="total_strength">0</div>
+            </td>
           </tr>
           <tr>
             <td>體型</td>
-            <td id="init_size">0</td>
-            <td id="skill_size">0</td>
-            <td id="equipment_size">0</td>
-            <td id="total_size">0</td>
+            <td>
+              <div id="init_size">0</div>
+            </td>
+            <td>
+              <div>
+                <div id="skill_size">0</div>
+              </div>
+            </td>
+            <td>
+              <div id="equipment_size">0</div>
+            </td>
+            <td>
+              <div id="total_size">0</div>
+            </td>
           </tr>
           <tr>
             <td>靈感</td>
-            <td id="init_intuition">0</td>
-            <td id="skill_intuition">0</td>
-            <td id="equipment_intuition">0</td>
-            <td id="total_intuition">0</td>
+            <td>
+              <div id="init_intuition">0</div>
+              <div>
+                <button class="roll_dice" value="init_intuition">重骰</button>
+              </div>
+            </td>
+            <td>
+              <div id="skill_intuition">0</div>
+            </td>
+            <td>
+              <div id="equipment_intuition">0</div>
+            </td>
+            <td>
+              <div id="total_intuition">0</div>
+            </td>
           </tr>
           <tr>
             <td>意志</td>
-            <td id="init_willpower">0</td>
-            <td id="skill_willpower">0</td>
-            <td id="equipment_willpower">0</td>
-            <td id="total_willpower">0</td>
+            <td>
+              <div id="init_willpower">0</div>
+              <div>
+                <button class="roll_dice" value="init_willpower">重骰</button>
+              </div>
+            </td>
+            <td>
+              <div id="skill_willpower">0</div>
+            </td>
+            <td>
+              <div id="equipment_willpower">0</div>
+            </td>
+            <td>
+              <div id="total_willpower">0</div>
+            </td>
           </tr>
           <tr>
             <td>神秘</td>
-            <td id="init_mystery">0</td>
-            <td id="skill_mystery">0</td>
-            <td id="equipment_mystery">0</td>
-            <td id="total_mystery">0</td>
+            <td>
+              <div id="init_mystery">0</div>
+              <div>
+                <button class="roll_dice" value="init_mystery">重骰</button>
+              </div>
+            </td>
+            <td>
+              <div id="skill_mystery">0</div>
+            </td>
+            <td>
+              <div id="equipment_mystery">0</div>
+            </td>
+            <td>
+              <div id="total_mystery">0</div>
+            </td>
           </tr>
           <tr>
             <td>幸運</td>
-            <td id="init_luck">0</td>
-            <td id="skill_luck">0</td>
-            <td id="equipment_luck">0</td>
-            <td id="total_luck">0</td>
+            <td>
+              <div id="init_luck">0</div>
+              <div>
+                <button class="roll_dice" value="init_luck">重骰</button>
+              </div>
+            </td>
+            <td>
+              <div id="skill_luck">0</div>
+            </td>
+            <td>
+              <div id="equipment_luck">0</div>
+            </td>
+            <td>
+              <div id="total_luck">0</div>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -431,8 +503,14 @@
         <tbody>
         <tr>
           <td>
-            <span>剩餘獎勵點:</span>
-            <span>0</span>
+            <div>
+              <span>獎勵點:</span>
+              <span id="total_bonus_point">0</span>
+            </div>
+            <div>
+              <span>剩餘獎勵點:</span>
+              <span id="bonus_point_unused">0</span>
+            </div>
           </td>
           <td>基礎值</td>
           <td>Class</td>
@@ -445,80 +523,276 @@
         </tr>
         <tr>
           <td>體力</td>
-          <td id="init_health_point">0</td>
-          <td id="class_health_point">0</td>
-          <td id="position_health_point">0</td>
-          <td id="role_health_point">0</td>
-          <td id="skill_health_point">0</td>
-          <td id="bonus_health_point">0</td>
-          <td id="equipment_health_point">0</td>
-          <td id="total_health_point">0</td>
+          <td>
+            <div id="init_health_point">0</div>
+          </td>
+          <td>
+            <div id="class_health_point">0</div>
+          </td>
+          <td>
+            <div id="position_health_point">0</div>
+          </td>
+          <td>
+            <div id="role_health_point">0</div>
+          </td>
+          <td>
+            <div id="skill_health_point">0</div>
+          </td>
+          <td>
+            <div id="bonus_health_point">0</div>
+            <div>
+              <button class="addition_button" value="bonus_health_point">
+                <svg width="15" height="15" viewBox="0 0 16 16">
+                  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+                </svg>
+              </button>
+              <button class="subtraction_button" value="bonus_health_point">
+                <svg width="15" height="15" fill="currentColor" viewBox="0 0 16 16">
+                  <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"/>
+                </svg>
+              </button>
+            </div>
+          </td>
+          <td>
+            <div id="equipment_health_point">0</div>
+          </td>
+          <td>
+            <div id="total_health_point">0</div>
+          </td>
         </tr>
         <tr>
           <td >攻擊力</td>
-          <td id="init_attack">0</td>
-          <td id="class_attack">0</td>
-          <td id="position_attack">0</td>
-          <td id="role_attack">0</td>
-          <td id="skill_attack">0</td>
-          <td id="bonus_attack">0</td>
-          <td id="equipment_attack">0</td>
-          <td id="total_attack">0</td>
+          <td>
+            <div id="init_attack">0</div>
+          </td>
+          <td>
+            <div id="class_attack">0</div>
+          </td>
+          <td>
+            <div id="position_attack">0</div>
+          </td>
+          <td>
+            <div id="role_attack">0</div>
+          </td>
+          <td>
+            <div id="skill_attack">0</div>
+          </td>
+          <td>
+            <div id="bonus_attack">0</div>
+            <div>
+              <button class="addition_button" value="bonus_attack">
+                <svg width="15" height="15" viewBox="0 0 16 16">
+                  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+                </svg>
+              </button>
+              <button class="subtraction_button" value="bonus_attack">
+                <svg width="15" height="15" fill="currentColor" viewBox="0 0 16 16">
+                  <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"/>
+                </svg>
+              </button>
+            </div>
+          </td>
+          <td>
+            <div id="equipment_attack">0</div>
+          </td>
+          <td>
+            <div id="total_attack">0</div>
+          </td>
         </tr>
         <tr>
           <td>防禦力</td>
-          <td id="init_defense">0</td>
-          <td id="class_defense">0</td>
-          <td id="position_defense">0</td>
-          <td id="role_defense">0</td>
-          <td id="skill_defense">0</td>
-          <td id="bonus_defense">0</td>
-          <td id="equipment_defense">0</td>
-          <td id="total_defense">0</td>
+          <td>
+            <div id="init_defense">0</div>
+          </td>
+          <td>
+            <div id="class_defense">0</div>
+          </td>
+          <td>
+            <div id="position_defense">0</div>
+          </td>
+          <td>
+            <div id="role_defense">0</div>
+          </td>
+          <td>
+            <div id="skill_defense">0</div>
+          </td>
+          <td>
+            <div id="bonus_defense">0</div>
+            <div>
+              <button class="addition_button" value="bonus_defense">
+                <svg width="15" height="15" viewBox="0 0 16 16">
+                  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+                </svg>
+              </button>
+              <button class="subtraction_button" value="bonus_defense">
+                <svg width="15" height="15" fill="currentColor" viewBox="0 0 16 16">
+                  <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"/>
+                </svg>
+              </button>
+            </div>
+          </td>
+          <td>
+            <div id="equipment_defense">0</div>
+          </td>
+          <td>
+            <div id="total_defense">0</div>
+          </td>
         </tr>
         <tr>
           <td>治癒力</td>
-          <td id="init_heal">0</td>
-          <td id="class_heal">0</td>
-          <td id="position_heal">0</td>
-          <td id="role_heal">0</td>
-          <td id="skill_heal">0</td>
-          <td id="bonus_heal">0</td>
-          <td id="equipment_heal">0</td>
-          <td id="total_heal">0</td>
+          <td>
+            <div id="init_heal">0</div>
+          </td>
+          <td>
+            <div id="class_heal">0</div>
+          </td>
+          <td>
+            <div id="position_heal">0</div>
+          </td>
+          <td>
+            <div id="role_heal">0</div>
+          </td>
+          <td>
+            <div id="skill_heal">0</div>
+          </td>
+          <td>
+            <div id="bonus_heal">0</div>
+            <div>
+              <button class="addition_button" value="bonus_heal">
+                <svg width="15" height="15" viewBox="0 0 16 16">
+                  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+                </svg>
+              </button>
+              <button class="subtraction_button" value="bonus_heal">
+                <svg width="15" height="15" fill="currentColor" viewBox="0 0 16 16">
+                  <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"/>
+                </svg>
+              </button>
+            </div>
+          </td>
+          <td>
+            <div id="equipment_heal">0</div>
+          </td>
+          <td>
+            <div id="total_heal">0</div>
+          </td>
         </tr>
         <tr>
           <td>敏捷</td>
-          <td id="init_dexterity">0</td>
-          <td id="class_dexterity">0</td>
-          <td id="position_dexterity">0</td>
-          <td id="role_dexterity">0</td>
-          <td id="skill_dexterity">0</td>
-          <td id="bonus_dexterity">0</td>
-          <td id="equipment_dexterity">0</td>
-          <td id="total_dexterity">0</td>
+          <td>
+            <div id="init_dexterity">0</div>
+          </td>
+          <td>
+            <div id="class_dexterity">0</div>
+          </td>
+          <td>
+            <div id="position_dexterity">0</div>
+          </td>
+          <td>
+            <div id="role_dexterity">0</div>
+          </td>
+          <td>
+            <div id="skill_dexterity">0</div>
+          </td>
+          <td>
+            <div id="bonus_dexterity">0</div>
+            <div>
+              <button class="addition_button" value="bonus_dexterity">
+                <svg width="15" height="15" viewBox="0 0 16 16">
+                  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+                </svg>
+              </button>
+              <button class="subtraction_button" value="bonus_dexterity">
+                <svg width="15" height="15" fill="currentColor" viewBox="0 0 16 16">
+                  <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"/>
+                </svg>
+              </button>
+            </div>
+          </td>
+          <td>
+            <div id="equipment_dexterity">0</div>
+          </td>
+          <td>
+            <div id="total_dexterity">0</div>
+          </td>
         </tr>
         <tr>
           <td>命中</td>
-          <td id="init_accurate">0</td>
-          <td id="class_accurate">0</td>
-          <td id="position_accurate">0</td>
-          <td id="role_accurate">0</td>
-          <td id="skill_accurate">0</td>
-          <td id="bonus_accurate">0</td>
-          <td id="equipment_accurate">0</td>
-          <td id="total_accurate">0</td>
+          <td>
+            <div id="init_accurate">0</div>
+          </td>
+          <td>
+            <div id="class_accurate">0</div>
+          </td>
+          <td>
+            <div id="position_accurate">0</div>
+          </td>
+          <td>
+            <div id="role_accurate">0</div>
+          </td>
+          <td>
+            <div id="skill_accurate">0</div>
+          </td>
+          <td>
+            <div id="bonus_accurate">0</div>
+            <div>
+              <button class="addition_button" value="bonus_accurate">
+                <svg width="15" height="15" viewBox="0 0 16 16">
+                  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+                </svg>
+              </button>
+              <button class="subtraction_button" value="bonus_accurate">
+                <svg width="15" height="15" fill="currentColor" viewBox="0 0 16 16">
+                  <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"/>
+                </svg>
+              </button>
+            </div>
+          </td>
+          <td>
+            <div id="equipment_accurate">0</div>
+          </td>
+          <td>
+            <div id="total_accurate">0</div>
+          </td>
         </tr>
         <tr>
           <td>迴避</td>
-          <td id="init_agility">0</td>
-          <td id="class_agility">0</td>
-          <td id="position_agility">0</td>
-          <td id="role_agility">0</td>
-          <td id="skill_agility">0</td>
-          <td id="bonus_agility">0</td>
-          <td id="equipment_agility">0</td>
-          <td id="total_agility">0</td>
+          <td>
+            <div id="init_agility">0</div>
+          </td>
+          <td>
+            <div id="class_agility">0</div>
+          </td>
+          <td>
+            <div id="position_agility">0</div>
+          </td>
+          <td>
+            <div id="role_agility">0</div>
+          </td>
+          <td>
+            <div id="skill_agility">0</div>
+          </td>
+          <td>
+            <div id="bonus_agility">0</div>
+            <div>
+              <button class="addition_button" value="bonus_agility">
+                <svg width="15" height="15" viewBox="0 0 16 16">
+                  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+                </svg>
+              </button>
+              <button class="subtraction_button" value="bonus_agility">
+                <svg width="15" height="15" fill="currentColor" viewBox="0 0 16 16">
+                  <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"/>
+                </svg>
+              </button>
+            </div>
+          </td>
+          <td>
+            <div id="equipment_agility">0</div>
+          </td>
+          <td>
+            <div id="total_agility">0</div>
+          </td>
         </tr>
         </tbody>
       </table>
@@ -802,10 +1076,25 @@
     equipment_total_attributes();
   });
 
+  const init_strength_element = document.getElementById('init_strength');
+  const init_size_element = document.getElementById('init_size');
+  const init_intuition_element = document.getElementById('init_intuition');
+  const init_willpower_element = document.getElementById('init_willpower');
+  const init_mystery_element = document.getElementById('init_mystery');
+  const init_luck_element = document.getElementById('init_luck');
+
+  const init_health_point_element = document.getElementById('init_health_point');
+  const init_attack_element = document.getElementById('init_attack');
+  const init_defense_element = document.getElementById('init_defense');
+  const init_heal_element = document.getElementById('init_heal');
+  const init_dexterity_element = document.getElementById('init_dexterity');
+  const init_accurate_element = document.getElementById('init_accurate');
+  const init_agility_element = document.getElementById('init_agility');
+
   // 合計計算
-  function setupTotalObserver(elementIds, totalElementId) {
-    const elements = elementIds.map(id => document.getElementById(id));
-    const totalElement = document.getElementById(totalElementId);
+  function setup_total_observer(element_ids, total_element_id) {
+    const elements = element_ids.map(id => document.getElementById(id));
+    const totalElement = document.getElementById(total_element_id);
 
     const observer = new MutationObserver(() => {
       let total = 0;
@@ -823,34 +1112,144 @@
   const config = { characterData: true, childList: true, subtree: true };
 
   // 體能
-  setupTotalObserver(['init_strength', 'skill_strength', 'equipment_strength'], 'total_strength');
+  setup_total_observer(['init_strength', 'skill_strength', 'equipment_strength'], 'total_strength');
   // 體型
-  setupTotalObserver(['init_size', 'skill_size', 'equipment_size'], 'total_size');
+  setup_total_observer(['init_size', 'skill_size', 'equipment_size'], 'total_size');
   // 靈感
-  setupTotalObserver(['init_intuition', 'skill_intuition', 'equipment_intuition'], 'total_intuition');
+  setup_total_observer(['init_intuition', 'skill_intuition', 'equipment_intuition'], 'total_intuition');
   // 意志
-  setupTotalObserver(['init_willpower', 'skill_willpower', 'equipment_willpower'], 'total_willpower');
+  setup_total_observer(['init_willpower', 'skill_willpower', 'equipment_willpower'], 'total_willpower');
   // 神秘
-  setupTotalObserver(['init_mystery', 'skill_mystery', 'equipment_mystery'], 'total_mystery');
+  setup_total_observer(['init_mystery', 'skill_mystery', 'equipment_mystery'], 'total_mystery');
   // 幸運
-  setupTotalObserver(['init_luck', 'skill_luck', 'equipment_luck'], 'total_luck');
+  setup_total_observer(['init_luck', 'skill_luck', 'equipment_luck'], 'total_luck');
 
   // 體力
-  setupTotalObserver(['init_health_point', 'class_health_point', 'position_health_point', 'role_health_point', 'skill_health_point', 'bonus_health_point', 'equipment_health_point'], 'total_health_point');
+  setup_total_observer(['init_health_point', 'class_health_point', 'position_health_point', 'role_health_point', 'skill_health_point', 'bonus_health_point', 'equipment_health_point'], 'total_health_point');
   // 攻擊
-  setupTotalObserver(['init_attack', 'class_attack', 'position_attack', 'role_attack', 'skill_attack', 'bonus_attack', 'equipment_attack'], 'total_attack');
+  setup_total_observer(['init_attack', 'class_attack', 'position_attack', 'role_attack', 'skill_attack', 'bonus_attack', 'equipment_attack'], 'total_attack');
   // 防禦
-  setupTotalObserver(['init_defense', 'class_defense', 'position_defense', 'role_defense', 'skill_defense', 'bonus_defense', 'equipment_defense'], 'total_defense');
+  setup_total_observer(['init_defense', 'class_defense', 'position_defense', 'role_defense', 'skill_defense', 'bonus_defense', 'equipment_defense'], 'total_defense');
   // 治癒
-  setupTotalObserver(['init_heal', 'class_heal', 'position_heal', 'role_heal', 'skill_heal', 'bonus_heal', 'equipment_heal'], 'total_heal');
+  setup_total_observer(['init_heal', 'class_heal', 'position_heal', 'role_heal', 'skill_heal', 'bonus_heal', 'equipment_heal'], 'total_heal');
   // 敏捷
-  setupTotalObserver(['init_dexterity', 'class_dexterity', 'position_dexterity', 'role_dexterity', 'skill_dexterity', 'bonus_dexterity', 'equipment_dexterity'], 'total_dexterity');
+  setup_total_observer(['init_dexterity', 'class_dexterity', 'position_dexterity', 'role_dexterity', 'skill_dexterity', 'bonus_dexterity', 'equipment_dexterity'], 'total_dexterity');
   // 命中
-  setupTotalObserver(['init_accurate', 'class_accurate', 'position_accurate', 'role_accurate', 'skill_accurate', 'bonus_accurate', 'equipment_accurate'], 'total_accurate');
+  setup_total_observer(['init_accurate', 'class_accurate', 'position_accurate', 'role_accurate', 'skill_accurate', 'bonus_accurate', 'equipment_accurate'], 'total_accurate');
   // 回避
-  setupTotalObserver(['init_agility', 'class_agility', 'position_agility', 'role_agility', 'skill_agility', 'bonus_agility', 'equipment_agility'], 'total_agility');
+  setup_total_observer(['init_agility', 'class_agility', 'position_agility', 'role_agility', 'skill_agility', 'bonus_agility', 'equipment_agility'], 'total_agility');
 
 
+  // 體力 (體能*30)
+  const init_health_point_observe = new MutationObserver(function() {
+    init_health_point_element.textContent = (parseInt(init_strength_element.textContent) * 30).toString();
+  });
+  init_health_point_observe.observe(init_strength_element, config);
+  // 攻擊 ([體能+靈感]/2)
+  const init_attack_observe = new MutationObserver(function() {
+    init_attack_element.textContent = Math.floor((parseInt(init_strength_element.textContent) + parseInt(init_intuition_element.textContent))/2).toString();
+  });
+  init_attack_observe.observe(init_strength_element,config);
+  init_attack_observe.observe(init_intuition_element,config);
+  // 防禦 ([體型+意志]/2)
+  const init_defense_observe = new MutationObserver(function() {
+    init_defense_element.textContent = Math.floor((parseInt(init_size_element.textContent) + parseInt(init_willpower_element.textContent))/2).toString();
+  });
+  init_defense_observe.observe(init_size_element,config);
+  init_defense_observe.observe(init_willpower_element,config);
+  // 治癒 ([意志+神秘]/3)
+  const init_heal_observe = new MutationObserver(function() {
+    init_heal_element.textContent = Math.floor((parseInt(init_willpower_element.textContent) + parseInt(init_mystery_element.textContent))/3).toString();
+  });
+  init_heal_observe.observe(init_willpower_element,config);
+  init_heal_observe.observe(init_mystery_element,config);
+  // 敏捷 ([體能+神秘]/3)
+  const init_dexterity_observe = new MutationObserver(function() {
+    init_dexterity_element.textContent = Math.floor((parseInt(init_strength_element.textContent) + parseInt(init_mystery_element.textContent))/3).toString();
+  });
+  init_dexterity_observe.observe(init_strength_element,config);
+  init_dexterity_observe.observe(init_mystery_element,config);
+  // 命中 ([幸運+意志]/3)
+  const init_accurate_observe = new MutationObserver(function() {
+    init_accurate_element.textContent = Math.floor((parseInt(init_luck_element.textContent) + parseInt(init_willpower_element.textContent))/3).toString();
+  });
+  init_accurate_observe.observe(init_luck_element,config);
+  init_accurate_observe.observe(init_willpower_element,config);
+  // 迴避 (靈感+幸運-體型)
+  const init_agility_observe = new MutationObserver(function() {
+    init_agility_element.textContent = Math.floor(parseInt(init_intuition_element.textContent) + parseInt(init_luck_element.textContent) - parseInt(init_size_element.textContent)).toString();
+  });
+  init_agility_observe.observe(init_intuition_element,config);
+  init_agility_observe.observe(init_luck_element,config);
+  init_agility_observe.observe(init_size_element,config);
+
+  // 初始探索屬性重骰
+  document.querySelectorAll('.roll_dice').forEach(button => {
+    button.addEventListener('click',function (){
+      const re_roll_element = document.getElementById(this.value);
+      if (re_roll_element) {
+        switch (this.value) {
+          case 'init_strength':
+          case 'init_intuition':
+          case 'init_willpower':
+            re_roll_element.textContent = (roll_dice() + roll_dice()).toString();
+            break;
+          case 'init_mystery':
+          case 'init_luck':
+            re_roll_element.textContent = roll_dice().toString();
+            break;
+        }
+      }
+    });
+  });
+
+  // 獎勵點加減
+  document.querySelectorAll('.addition_button, .subtraction_button').forEach(button => {
+    button.addEventListener('click', function () {
+      const bonus_point_unused_element = document.getElementById('bonus_point_unused');
+      let bonus_point = parseInt(bonus_point_unused_element.textContent);
+      const bonus_point_attributes_element = document.getElementById(this.value);
+
+      if (bonus_point_attributes_element && !isNaN(bonus_point)) {
+        let changeValue = this.value !== 'bonus_health_point' ? 1 : 10;
+
+        if (this.classList.contains('subtraction_button') && parseInt(bonus_point_attributes_element.textContent) > 0) {
+          bonus_point_attributes_element.textContent = (parseInt(bonus_point_attributes_element.textContent) - changeValue).toString();
+          bonus_point_unused_element.textContent = (bonus_point + 1).toString();
+        } else if (this.classList.contains('addition_button') && bonus_point > 0) {
+          bonus_point_attributes_element.textContent = (parseInt(bonus_point_attributes_element.textContent) + changeValue).toString();
+          bonus_point_unused_element.textContent = (bonus_point - 1).toString();
+        }
+      }
+    });
+  });
+
+
+  /**
+   * 擲骰子
+   * @param {number} max 幾面骰
+   * @returns {number} 擲骰結果
+   */
+  function roll_dice(max = 6){
+    return Math.floor(Math.random() * max) + 1;
+  }
+
+  // 初始探索能力值
+  // 體力 (2d6)
+  init_strength_element.textContent = (roll_dice() + roll_dice()).toString();
+  // 體型 (身高/20)
+  document.getElementById('height_input').addEventListener('change',function (){
+    const init_size_element = document.getElementById('init_size');
+    init_size_element.textContent = Math.floor(this.value / 20).toString();
+  });
+  // 靈感 (2d6)
+  document.getElementById('init_intuition').textContent = (roll_dice() + roll_dice()).toString();
+  // 意志 (2d6)
+  document.getElementById('init_willpower').textContent = (roll_dice() + roll_dice()).toString();
+  // 神秘 (1d6)
+  document.getElementById('init_mystery').textContent = roll_dice().toString();
+  // 幸運 (1d6)
+  document.getElementById('init_luck').textContent = roll_dice().toString();
 
 </script>
 </html>
