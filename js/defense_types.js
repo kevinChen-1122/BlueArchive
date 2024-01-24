@@ -11,7 +11,7 @@ class Defense_types {
          * 名稱
          * @type {string}
          */
-        this.name = name;
+        this._name = name;
     }
     static LIST = [
         "LIGHT_ARMOR",
@@ -40,7 +40,7 @@ class Defense_types {
         Object.values(Defense_types.LIST).forEach((type_name) => {
             if (Defense_types[type_name] ?? null) {
                 const new_option = document.createElement('option')
-                new_option.textContent = Defense_types[type_name].name;
+                new_option.textContent = Defense_types[type_name]._name;
                 new_option.dataset.id = type_name;
                 select_element.appendChild(new_option);
             }
