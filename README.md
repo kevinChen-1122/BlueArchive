@@ -6,7 +6,7 @@ BlueArchive
 │  ├─ attack_types.js (攻擊類型)
 │  ├─ battle_attributes.js (戰鬥屬性)
 │  ├─ class_type.js (Class)
-│  ├─ defense_type.js (防禦類型)
+│  ├─ defense_types.js (防禦類型)
 │  ├─ equipment.js (裝備)
 │  ├─ exploration_attributes.js (探索屬性)
 │  ├─ firearm.js (武器)
