@@ -3,7 +3,7 @@
 ```
 BlueArchive
 ├─ js/
-│  ├─ attack_type.js (攻擊類型)
+│  ├─ attack_types.js (攻擊類型)
 │  ├─ battle_attributes.js (戰鬥屬性)
 │  ├─ class_type.js (Class)
 │  ├─ defense_type.js (防禦類型)
