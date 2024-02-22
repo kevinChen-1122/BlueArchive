@@ -128,7 +128,7 @@ const equipment_config = [
         key:"HAT",
         data:{
             name:"帽子",
-            slots_type:"A",
+            slots_type:Equipment.SLOTS_TYPE.A,
             exploration_attributes:{
                 strength:0,
                 size:0,
@@ -155,7 +155,7 @@ const equipment_config = [
         key:"GLOVES",
         data:{
             name:"手套",
-            slots_type:"A",
+            slots_type:Equipment.SLOTS_TYPE.A,
             exploration_attributes:{
                 strength:0,
                 size:0,
@@ -182,7 +182,7 @@ const equipment_config = [
         key:"SHOE",
         data:{
             name:"鞋子",
-            slots_type:"A",
+            slots_type:Equipment.SLOTS_TYPE.A,
             exploration_attributes:{
                 strength:0,
                 size:1,
@@ -208,7 +208,7 @@ const equipment_config = [
         key:"HAIRPIN",
         data:{
             name:"髮夾",
-            slots_type:"B",
+            slots_type:Equipment.SLOTS_TYPE.A,
             exploration_attributes:{
                 strength:0,
                 size:0,
@@ -235,7 +235,7 @@ const equipment_config = [
         key:"BADGE",
         data:{
             name:"勳章",
-            slots_type:"B",
+            slots_type:Equipment.SLOTS_TYPE.B,
             exploration_attributes:{
                 strength:0,
                 size:0,
@@ -262,7 +262,7 @@ const equipment_config = [
         key:"BAG",
         data:{
             name:"背包",
-            slots_type:"B",
+            slots_type:Equipment.SLOTS_TYPE.B,
             exploration_attributes:{
                 strength:2,
                 size:0,
@@ -288,7 +288,7 @@ const equipment_config = [
         key:"WATCH",
         data:{
             name:"手錶",
-            slots_type:"C",
+            slots_type:Equipment.SLOTS_TYPE.C,
             exploration_attributes:{
                 strength:0,
                 size:0,
@@ -316,7 +316,7 @@ const equipment_config = [
         key:"CHARM",
         data:{
             name:"符咒",
-            slots_type:"C",
+            slots_type:Equipment.SLOTS_TYPE.C,
             exploration_attributes:{
                 strength:0,
                 size:0,
@@ -342,7 +342,7 @@ const equipment_config = [
         key:"NECKLACE",
         data:{
             name:"項鍊",
-            slots_type:"C",
+            slots_type:Equipment.SLOTS_TYPE.C,
             exploration_attributes:{
                 strength:0,
                 size:0,
