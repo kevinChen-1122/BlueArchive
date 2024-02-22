@@ -6,11 +6,11 @@
     <script src="js/exploration_attributes.js"></script>
     <script src="js/battle_attributes.js"></script>
     <script src="js/role.js"></script>
-    <script src="js/attack_type.js"></script>
+    <script src="js/attack_types.js"></script>
     <script src="js/position.js"></script>
-    <script src="js/defense_type.js"></script>
-    <script src="js/class_type.js"></script>
-    <script src="js/terrain.js"></script>
+    <script src="js/defense_types.js"></script>
+    <script src="js/class_types.js"></script>
+    <script src="js/terrain_affinity.js"></script>
     <script src="js/equipment.js"></script>
     <script src="js/firearm.js"></script>
     <style>
@@ -82,8 +82,8 @@
     create_info('裝備', new Equipment().generate_table_data());
     create_info('戰術作用', new Role().generate_table_data());
     create_info('位置', new Position().generate_table_data());
-    create_info('地形戰鬥力', new Terrain().generate_table_data());
-    create_info('Class', new Class_type().generate_table_data());
+    create_info('地形戰鬥力', new Terrain_affinity().generate_table_data());
+    create_info('Class', new Class_types().generate_table_data());
 
     setupTabListeners()
 
