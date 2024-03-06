@@ -6,13 +6,16 @@
   <script src="js/exploration_attributes.js"></script>
   <script src="js/battle_attributes.js"></script>
   <script src="js/role.js"></script>
-  <script src="js/attack_type.js"></script>
+  <script src="js/attack_types.js"></script>
   <script src="js/position.js"></script>
-  <script src="js/defense_type.js"></script>
-  <script src="js/class_type.js"></script>
+  <script src="js/defense_types.js"></script>
+  <script src="js/class_types.js"></script>
   <script src="js/terrain.js"></script>
+  <script src="js/terrain_affinity.js"></script>
   <script src="js/equipment.js"></script>
   <script src="js/firearm.js"></script>
+  <script src="js/skill.js"></script>
+  <script src="js/character.js"></script>
   <style>
     body {
       font-family: arial,serif;
@@ -366,6 +369,55 @@
         </tbody>
       </table>
     </div>
+<!--    技能-->
+    <div class="table">
+      <table>
+        <thead>
+        <tr>
+          <td colspan="3">技能</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>可用學習技能點</td>
+          <td colspan="2">0</td>
+        </tr>
+        <tr>
+          <td rowspan="6">Ex 技能</td>
+        </tr>
+        <tr>
+          <td>名稱</td>
+          <td>選擇技能</td>
+        </tr>
+        <tr>
+          <td>
+            <div>
+              <label>
+                <input>
+              </label>
+            </div>
+          </td>
+          <td>
+            <div>
+              <label id="ex_skill_select_label">
+              </label>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>Class</td>
+          <td id="ex_skill_class_td"></td>
+        </tr>
+        <tr>
+          <td>SP</td>
+          <td id="ex_skill_sp_td"></td>
+        </tr>
+        <tr>
+          <td colspan="2" id="ex_skill_effect_td"></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
 <!--    探索屬性-->
     <div class="table">
       <table>
@@ -505,11 +557,11 @@
           <td>
             <div>
               <span>獎勵點:</span>
-              <span id="total_bonus_point">0</span>
+              <span id="bonus_point">0</span>
             </div>
             <div>
-              <span>剩餘獎勵點:</span>
-              <span id="bonus_point_unused">0</span>
+              <span>技能點轉獎勵點:</span>
+              <span id="skill_cost">0</span>
             </div>
           </td>
           <td>基礎值</td>
@@ -827,10 +879,10 @@
   }
 
   // 武器
-  document.getElementById('firearm_select_label').appendChild(new Firearm().create_options())
+  document.getElementById('firearm_select_label').appendChild(Firearm.create_options())
   document.getElementById('firearm_select').addEventListener("change",function (){
     const selected_option = this.options[this.selectedIndex];
-    const firearm_info = Firearm.TYPES[selected_option.dataset.id] ?? null;
+    const firearm_info = Firearm[selected_option.dataset.id] ?? null;
     if (firearm_info !== null) {
       const firearm_name_td = document.getElementById('firearm_name_td');
       const firearm_target_td = document.getElementById('firearm_target_td');
@@ -839,13 +891,13 @@
       const firearm_reload_round_td = document.getElementById('firearm_reload_round_td');
       const firearm_property_td = document.getElementById('firearm_property_td');
 
-      const weaponData = Object.values(firearm_info.weapon);
+      const weaponData = Object.values(firearm_info);
 
-      firearm_name_td.innerHTML = Object.keys(firearm_info.weapon).map(item => `<div>${item}</div>`).join('');
+      firearm_name_td.innerHTML = weaponData.map(item => `<div>${item.name}</div>`).join('');
       firearm_target_td.innerHTML = weaponData.map(item => `<div>${item.target === Firearm.TARGET_TYPE.ONE ? "單一": "複數"}</div>`).join('');
       firearm_range_td.innerHTML = weaponData.map(item => `<div>${item.min_range} ~ ${item.max_range}</div>`).join('');
       firearm_capacity_td.innerHTML = weaponData.map(item => `<div>${item.capacity}</div>`).join('');
-      firearm_reload_round_td.innerHTML = weaponData.map(item => `<div>${item.reload_round}</div>`).join('');
+      firearm_reload_round_td.innerHTML = weaponData.map(item => `<div>${item.reload_turn}</div>`).join('');
       firearm_property_td.innerHTML = weaponData.map(item =>
               `<div><ul>${Object.values(item.property).map(property =>
                       `<li>${property}</li>`
@@ -855,10 +907,10 @@
   });
 
   // 戰術作用
-  document.getElementById('role_select_label').appendChild(new Role().create_options());
+  document.getElementById('role_select_label').appendChild(Role.SELECT_ELEMENT);
   document.getElementById('role_select').addEventListener('change', function () {
     const selected_option = this.options[this.selectedIndex];
-    const role_info = Role.TYPES[selected_option.dataset.id] ?? null;
+    const role_info = Role[selected_option.dataset.id] ?? null;
     if (role_info !== null) {
       Object.keys(role_info.exploration_attributes).forEach(attribute_name => {
         const element = document.getElementById(`role_${attribute_name}`);
@@ -875,14 +927,14 @@
     }
   });
   // 攻擊類型
-  document.getElementById('attack_type_select_label').appendChild(new Attack_type().create_options());
+  document.getElementById('attack_type_select_label').appendChild(Attack_types.SELECT_ELEMENT);
   // 防禦類型
-  document.getElementById('defense_type_select_label').appendChild(new Defense_type().create_options());
+  document.getElementById('defense_type_select_label').appendChild(Defense_types.SELECT_ELEMENT);
   // 位置
-  document.getElementById('position_select_label').appendChild(new Position().create_options());
+  document.getElementById('position_select_label').appendChild(Position.SELECT_ELEMENT);
   document.getElementById('position_select').addEventListener('change', function () {
     const selected_option = this.options[this.selectedIndex];
-    const position_info = Position.TYPES[selected_option.dataset.id] ?? null;
+    const position_info = Position[selected_option.dataset.id] ?? null;
     if (position_info !== null) {
       const position_attributes_element = document.getElementById('position_attributes_td');
       const position_bonus_point_element = document.getElementById('position_bonus_point_td');
@@ -908,10 +960,10 @@
     }
   });
   // Class
-  document.getElementById('class_type_select_label').appendChild(new Class_type().create_options());
+  document.getElementById('class_type_select_label').appendChild(Class_types.create_options());
   document.getElementById('class_type_select').addEventListener('change', function () {
     const selected_option = this.options[this.selectedIndex];
-    const class_type_info = Class_type.TYPES[selected_option.dataset.id] ?? null;
+    const class_type_info = Class_types[selected_option.dataset.id] ?? null;
     if (class_type_info !== null) {
       const class_type_attributes_element = document.getElementById('class_type_attributes_td');
       const class_type_bonus_point_element = document.getElementById('class_type_bonus_point_td');
@@ -948,9 +1000,9 @@
     const desert_selected = desert_select.options[desert_select.selectedIndex];
     const indoors_selected = indoors_select.options[indoors_select.selectedIndex];
 
-    const city_cost = Terrain.AFFINITY[city_selected.dataset.id]?.cost || 0;
-    const desert_cost = Terrain.AFFINITY[desert_selected.dataset.id]?.cost || 0;
-    const indoors_cost = Terrain.AFFINITY[indoors_selected.dataset.id]?.cost || 0;
+    const city_cost = Terrain_affinity[city_selected.dataset.id]?.cost || 0;
+    const desert_cost = Terrain_affinity[desert_selected.dataset.id]?.cost || 0;
+    const indoors_cost = Terrain_affinity[indoors_selected.dataset.id]?.cost || 0;
 
     const terrain_total_cost_element = document.getElementById('terrain_total_cost');
     let total = parseInt(city_cost) + parseInt(desert_cost) + parseInt(indoors_cost);
@@ -960,13 +1012,13 @@
     terrain_total_cost_element.textContent = total.toString();
   }
   // 市區
-  document.getElementById('terrain_city_select_label').appendChild(new Terrain().create_options('city'));
+  document.getElementById('terrain_city_select_label').appendChild(new Terrain_affinity().create_options('city'));
   document.getElementById('terrain_city_select').addEventListener("change", terrain_total_cost);
   // 野外
-  document.getElementById('terrain_desert_select_label').appendChild(new Terrain().create_options('desert'));
+  document.getElementById('terrain_desert_select_label').appendChild(new Terrain_affinity().create_options('desert'));
   document.getElementById('terrain_desert_select').addEventListener("change", terrain_total_cost);
   // 室內
-  document.getElementById('terrain_indoors_select_label').appendChild(new Terrain().create_options('indoors'));
+  document.getElementById('terrain_indoors_select_label').appendChild(new Terrain_affinity().create_options('indoors'));
   document.getElementById('terrain_indoors_select').addEventListener("change", terrain_total_cost);
 
   // 裝備合計能力
@@ -981,15 +1033,15 @@
 
     const equipment_list = [];
 
-    const equipment_A_slots = Equipment.TYPES[equipment_A_slots_selected.dataset.id] ?? null;
+    const equipment_A_slots = Equipment[equipment_A_slots_selected.dataset.id] ?? null;
     if (equipment_A_slots !== null) {
       equipment_list.push(equipment_A_slots);
     }
-    const equipment_B_slots = Equipment.TYPES[equipment_B_slots_selected.dataset.id] ?? null;
+    const equipment_B_slots = Equipment[equipment_B_slots_selected.dataset.id] ?? null;
     if (equipment_B_slots !== null) {
       equipment_list.push(equipment_B_slots);
     }
-    const equipment_C_slots = Equipment.TYPES[equipment_C_slots_selected.dataset.id] ?? null;
+    const equipment_C_slots = Equipment[equipment_C_slots_selected.dataset.id] ?? null;
     if (equipment_C_slots !== null) {
       equipment_list.push(equipment_C_slots);
     }
@@ -1031,10 +1083,10 @@
     });
   }
   // 裝備區塊 A
-  document.getElementById('equipment_A_slots_select_label').appendChild(new Equipment().create_options(Equipment.SLOTS_TYPE.A));
+  document.getElementById('equipment_A_slots_select_label').appendChild(Equipment.SELECT_ELEMENT_SLOTS_TYPE_A);
   document.getElementById('equipment_A_slots_select').addEventListener('change', function () {
     const selected_option = this.options[this.selectedIndex];
-    const equipment_info = Equipment.TYPES[selected_option.dataset.id] ?? null;
+    const equipment_info = Equipment[selected_option.dataset.id] ?? null;
     if (equipment_info !== null) {
       const equipment_A_slots_info_element = document.getElementById('equipment_A_slots_info_td');
 
@@ -1046,10 +1098,10 @@
     equipment_total_attributes();
   });
   // 裝備區塊 B
-  document.getElementById('equipment_B_slots_select_label').appendChild(new Equipment().create_options(Equipment.SLOTS_TYPE.B));
+  document.getElementById('equipment_B_slots_select_label').appendChild(Equipment.SELECT_ELEMENT_SLOTS_TYPE_B);
   document.getElementById('equipment_B_slots_select').addEventListener('change', function () {
     const selected_option = this.options[this.selectedIndex];
-    const equipment_info = Equipment.TYPES[selected_option.dataset.id] ?? null;
+    const equipment_info = Equipment[selected_option.dataset.id] ?? null;
     if (equipment_info !== null) {
       const equipment_B_slots_info_element = document.getElementById('equipment_B_slots_info_td');
 
@@ -1061,10 +1113,10 @@
     equipment_total_attributes();
   });
   // 裝備區塊 C
-  document.getElementById('equipment_C_slots_select_label').appendChild(new Equipment().create_options(Equipment.SLOTS_TYPE.C));
+  document.getElementById('equipment_C_slots_select_label').appendChild(Equipment.SELECT_ELEMENT_SLOTS_TYPE_C);
   document.getElementById('equipment_C_slots_select').addEventListener('change', function () {
     const selected_option = this.options[this.selectedIndex];
-    const equipment_info = Equipment.TYPES[selected_option.dataset.id] ?? null;
+    const equipment_info = Equipment[selected_option.dataset.id] ?? null;
     if (equipment_info !== null) {
       const equipment_C_slots_info_element = document.getElementById('equipment_C_slots_info_td');
 
@@ -1206,8 +1258,8 @@
   // 獎勵點加減
   document.querySelectorAll('.addition_button, .subtraction_button').forEach(button => {
     button.addEventListener('click', function () {
-      const bonus_point_unused_element = document.getElementById('bonus_point_unused');
-      let bonus_point = parseInt(bonus_point_unused_element.textContent);
+      const bonus_point_element = document.getElementById('bonus_point');
+      let bonus_point = parseInt(bonus_point_element.textContent);
       const bonus_point_attributes_element = document.getElementById(this.value);
 
       if (bonus_point_attributes_element && !isNaN(bonus_point)) {
@@ -1215,15 +1267,18 @@
 
         if (this.classList.contains('subtraction_button') && parseInt(bonus_point_attributes_element.textContent) > 0) {
           bonus_point_attributes_element.textContent = (parseInt(bonus_point_attributes_element.textContent) - changeValue).toString();
-          bonus_point_unused_element.textContent = (bonus_point + 1).toString();
+          bonus_point_element.textContent = (bonus_point + 1).toString();
         } else if (this.classList.contains('addition_button') && bonus_point > 0) {
           bonus_point_attributes_element.textContent = (parseInt(bonus_point_attributes_element.textContent) + changeValue).toString();
-          bonus_point_unused_element.textContent = (bonus_point - 1).toString();
+          bonus_point_element.textContent = (bonus_point - 1).toString();
         }
       }
     });
   });
 
+  // function bonus() {
+  //
+  // }
 
   /**
    * 擲骰子
@@ -1251,5 +1306,20 @@
   // 幸運 (1d6)
   document.getElementById('init_luck').textContent = roll_dice().toString();
 
+  // ex 技能
+  document.getElementById('ex_skill_select_label').appendChild(new Skill().create_options());
+  document.getElementById('ex_skill_select').addEventListener('change', function () {
+    const selected_option = this.options[this.selectedIndex];
+    const skill_info = Skill.EX_SKILL[selected_option.dataset.id] ?? null;
+    if (skill_info !== null) {
+      const b = document.getElementById('ex_skill_class_td');
+      const c = document.getElementById('ex_skill_sp_td');
+      const d = document.getElementById('ex_skill_effect_td');
+
+      b.textContent = Class_types.TYPES[skill_info.class_type].name;
+      c.textContent = skill_info.sp;
+      d.textContent = skill_info.effect;
+    }
+  });
 </script>
 </html>

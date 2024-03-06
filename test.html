@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tab Example</title>
+    <script src="js/battle_attributes.js"></script>
+    <script src="js/exploration_attributes.js"></script>
+    <script src="js/role.js"></script>
+    <script src="js/attack_types.js"></script>
+    <script src="js/defense_types.js"></script>
+    <script src="js/firearm.js"></script>
+<!--    <script src="carousell_search_keyword.json"></script>-->
+    <script src="js/test/class_types.js"></script>
+    <script src="js/character.js"></script>
+    <script src="js/equipment.js"></script>
+    <script src="js/a.js"></script>
+</head>
+<script type="text/javascript" >
+    function load() {
+        var mydata = JSON.parse(data);
+        console.log(mydata);
+
+    }
+    // load()
+
+
+</script>
+<body>
+<input id='file' type='file' accept='text/plain'><br>
+<pre id='output'>...</pre>
+</body>
+<script>
+    const $output = document.getElementById('output')
+    const $file = document.getElementById('file')
+    let count
+    const fetchFile = async e => {
+        const [file] = e.target.files
+        if (!file) return
+        count = 0
+        const text = await file.text()
+        $output.textContent = text
+
+        const lines = text.split(/\r?\n/gm)
+        for (const line of lines) {
+            if (line) count++
+        }
+        console.log({count})
+    }
+
+    $file.onchange = fetchFile
+</script>
+</html>

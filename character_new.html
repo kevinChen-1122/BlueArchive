@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Character UI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <style>
+    .card-shadow {
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+  </style>
+</head>
+
+<body>
+<div class="min-h-screen bg-blue-100 p-4">
+  <div class="bg-white p-4 rounded-lg card-shadow">
+    <div class="flex items-center justify-between pb-4">
+      <i class="fas fa-arrow-left text-blue-500 text-2xl"></i>
+      <div>
+        <div class="text-sm font-semibold text-gray-700">140/234</div>
+        <div class="text-sm font-semibold text-gray-700">860,919,093</div>
+      </div>
+      <div class="text-yellow-400 text-2xl">
+        <i class="fas fa-coins"></i>
+        <span>52,920</span>
+      </div>
+      <div class="text-gray-600">
+        <i class="fas fa-cog text-2xl"></i>
+      </div>
+    </div>
+
+    <!-- Character Panel -->
+    <div class="bg-blue-200 p-4 rounded-lg">
+      <div class="flex items-center">
+        <img src="https://placehold.co/100x100" alt="Character placeholder image" class="rounded-full">
+        <div class="ml-4">
+          <div class="text-lg font-bold text-gray-800">ジョロ</div>
+          <div class="text-sm text-gray-600">STRIKER</div>
+        </div>
+      </div>
+      <div class="mt-4 grid grid-cols-2 gap-4">
+        <div class="text-center">
+          <div class="text-lg font-bold text-gray-800">HP 45017</div>
+          <div class="text-sm text-gray-600">防御力 105</div>
+        </div>
+        <div class="text-center">
+          <div class="text-lg font-bold text-gray-800">攻撃力 6990</div>
+          <div class="text-sm text-gray-600">運動力 5596</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats and Abilities -->
+    <div class="mt-4 grid grid-cols-3 gap-4 text-center">
+      <div class="bg-red-200 p-4 rounded-lg">
+        <div class="text-lg font-bold text-gray-800">EXスキル</div>
+        <div class="text-sm text-gray-600">MAX</div>
+      </div>
+      <div class="bg-red-200 p-4 rounded-lg">
+        <div class="text-lg font-bold text-gray-800">ノーマルスキル</div>
+        <div class="text-sm text-gray-600">MAX</div>
+      </div>
+      <div class="bg-red-200 p-4 rounded-lg">
+        <div class="text-lg font-bold text-gray-800">クラススキル</div>
+        <div class="text-sm text-gray-600">MAX</div>
+      </div>
+    </div>
+
+    <!-- Equipment Section -->
+    <div class="mt-4 grid grid-cols-2 gap-4">
+      <div class="bg-blue-200 p-4 rounded-lg">
+        <div class="text-lg font-bold text-gray-800">スキル成長</div>
+      </div>
+      <div class="bg-blue-200 p-4 rounded-lg">
+        <img src="https://placehold.co/64x64" alt="Weapon placeholder image">
+        <div class="text-lg font-bold text-gray-800">AR</div>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="mt-4 grid grid-cols-5 gap-4">
+      <button class="bg-gray-300 p-2 rounded-lg">
+        <i class="fas fa-comment-alt text-gray-800"></i>
+      </button>
+      <button class="bg-gray-300 p-2 rounded-lg">
+        <i class="fas fa-user-friends text-gray-800"></i>
+      </button>
+      <button class="bg-gray-300 p-2 rounded-lg">
+        <i class="fas fa-chart-bar text-gray-800"></i>
+      </button>
+      <button class="bg-gray-300 p-2 rounded-lg">
+        <i class="fas fa-book-open text-gray-800"></i>
+      </button>
+      <button class="bg-gray-300 p-2 rounded-lg">
+        <i class="fas fa-cog text-gray-800"></i>
+      </button>
+    </div>
+  </div>
+</div>
+</body>
+
+</html>
